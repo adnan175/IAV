@@ -1,0 +1,41 @@
+Sub getData()
+
+ Dim httpObject As Object
+ Set httpObject = CreateObject("MSXML2.XMLHTTP")
+
+ sURL = "https://httpbin.org/get"
+
+ sRequest = sURL
+ httpObject.Open "GET", sRequest, False
+ httpObject.send
+ sGetResult = httpObject.responseText
+ 
+ Dim Json As Object
+    Set Json = JsonConverter.ParseJson(sGetResult)
+    
+    Set ws = ThisWorkbook.Sheets("Sheet1")
+    ws.Cells(1, 1) = "Accept"
+    ws.Cells(2, 1) = "Accept-Encoding"
+    ws.Cells(3, 1) = "Accept-Language"
+    ws.Cells(4, 1) = "Connection"
+    ws.Cells(5, 1) = "Cookie"
+    ws.Cells(6, 1) = "Host"
+    ws.Cells(7, 1) = "Upgrade-Insecure-Requests"
+    ws.Cells(8, 1) = "User-Agent"
+    
+    ' Adding JSON data into cells
+    
+    ws.Cells(1, 2) = Json("headers")("Accept")
+    ws.Cells(2, 2) = Json("headers")("Accept-Encoding")
+    ws.Cells(3, 2) = Json("headers")("Accept-Language")
+    ws.Cells(4, 2) = Json("headers")("Connection")
+    ws.Cells(5, 2) = Json("headers")("Cookie")
+    ws.Cells(6, 2) = Json("headers")("Host")
+    ws.Cells(7, 2) = Json("headers")("Upgrade-Insecure-Requests")
+    ws.Cells(8, 2) = Json("headers")("User-Agent")
+  
+End Sub
+
+Sub sbClearCellsOnlyData()
+Range("A1:C10").ClearContents
+End Sub
