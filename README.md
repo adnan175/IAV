@@ -6,6 +6,7 @@
 * Click "Download" button 
 * A connection will bulid with https://httpbin.org/get
 * Response data will populate in two Excel columns
+* Click "Clear Data" button to remove content in coulmns 
 
 ## VBA-JSON
 
